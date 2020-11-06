@@ -1,0 +1,63 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QMainWindow>
+#include <QtWidgets>
+#include <QtCore>
+
+class Configuration;
+
+class QStreamTab;
+class QResultTab;
+
+namespace Ui {
+class MainWindow;
+}
+
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+// Constructer & Destructer /////////////////////////////
+public:
+    explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+
+// Methods //////////////////////////////////////////////
+protected:
+    void closeEvent(QCloseEvent *e);
+
+private slots:
+    void onTimer();
+    void changedTab(int);
+
+// Variables ////////////////////////////////////////////
+public:
+    Configuration* m_pConfiguration;
+
+private:
+    QTimer *m_pTimer;
+
+private:
+    Ui::MainWindow *ui;
+
+    // Layout
+    QGridLayout *m_pGridLayout;
+
+public:
+    // Tab objects
+    QTabWidget *m_pTabWidget;
+    QStreamTab *m_pStreamTab;
+    QResultTab *m_pResultTab;
+
+    // Status bar
+    QLabel *m_pStatusLabel_ImagePos;
+	QLabel *m_pStatusLabel_PmtGain;
+
+    QLabel *m_pStatusLabel_Acquisition;
+    QLabel *m_pStatusLabel_Recording;
+    QLabel *m_pStatusLabel_StageMoving;
+};
+
+#endif // MAINWINDOW_H
